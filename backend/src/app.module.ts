@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { AuthModule } from './auth/auth.module';
 
 // Entidades
 import { Usuario } from './entities/usuario.entity';
@@ -53,6 +54,7 @@ const ENTITIES = [
     }),
     inject: [ConfigService],
   }),
+  AuthModule,
   ],
 })
 export class AppModule {}

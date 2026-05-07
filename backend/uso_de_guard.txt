@@ -1,0 +1,4 @@
+@UseGuards(JwtAuthGuard, RolesGuard)
+@Roles(Rol.ADMIN)
+@Get('algo-privado')
+metodoProtegido(@CurrentUser() user: Usuario) { ... }
