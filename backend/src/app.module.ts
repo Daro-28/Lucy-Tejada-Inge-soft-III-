@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AuthModule } from './auth/auth.module';
+
 
 // Entidades
 import { Usuario } from './entities/usuario.entity';
@@ -24,6 +24,19 @@ import { Notificacion } from './entities/notificacion.entity';
 import { Archivo } from './entities/archivo.entity';
 import { Reporte } from './entities/reporte.entity';
 
+import { AuthModule } from './auth/auth.module';
+import { UsuariosModule } from './usuarios/usuarios.module';
+import { ProgramasModule } from './programas/programas.module';
+import { GruposModule } from './grupos/grupos.module';
+import { EstudiantesModule } from './estudiantes/estudiantes.module';
+import { EducadoresModule } from './educadores/educadores.module';
+import { MatriculasModule } from './matriculas/matriculas.module';
+import { AsistenciasModule } from './asistencias/asistencias.module';
+import { EvaluacionesModule } from './evaluaciones/evaluaciones.module';
+import { EscenariosModule } from './escenarios/escenarios.module';
+import { ReservasModule } from './reservas/reservas.module';
+import { NotificacionesModule } from './notificaciones/notificaciones.module';
+
 const ENTITIES = [
   Usuario, Estudiante, Educador, Administrador,
   Programa, Grupo, Matricula, Contrato, Pago,
@@ -36,25 +49,34 @@ const ENTITIES = [
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRootAsync({
-    imports: [ConfigModule],
-    useFactory: (config: ConfigService) => ({
-      type: 'postgres',
-      url: config.get<string>('DATABASE_URL'),
-      ssl: {
-        rejectUnauthorized: false,
-      },
-      extra: {
-        ssl: {
-          rejectUnauthorized: false,
+      imports: [ConfigModule],
+      useFactory: (config: ConfigService) => ({
+        type: 'postgres',
+        url: config.get<string>('DATABASE_URL'),
+        ssl: true,
+        extra: {
+          ssl: {
+            rejectUnauthorized: false,
+          },
+          connectionTimeoutMillis: 10000,
         },
-      },
-      entities: ENTITIES,
-      synchronize: false,
-      logging: true, // 👈 temporal para ver conexión
+        entities: ENTITIES,
+        synchronize: false,
+      }),
+      inject: [ConfigService],
     }),
-    inject: [ConfigService],
-  }),
-  AuthModule,
+    AuthModule,
+    UsuariosModule,
+    ProgramasModule,
+    GruposModule,
+    EstudiantesModule,
+    EducadoresModule,
+    MatriculasModule,
+    AsistenciasModule,
+    EvaluacionesModule,
+    EscenariosModule,
+    ReservasModule,
+    NotificacionesModule,
   ],
 })
-export class AppModule {}
+export class AppModule { }
