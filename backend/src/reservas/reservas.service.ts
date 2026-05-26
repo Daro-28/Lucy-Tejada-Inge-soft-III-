@@ -34,7 +34,7 @@ export class ReservasService {
         // Verificar conflicto de horario
         const conflicto = await this.repo
             .createQueryBuilder('r')
-            .where('r.escenario_id = :escenarioId', { escenarioId: dto.escenarioId })
+            .where('r.escenario = :escenarioId', { escenarioId: dto.escenarioId })
             .andWhere('r.fecha = :fecha', { fecha: dto.fecha })
             .andWhere('r.hora_inicio < :horaFin AND r.hora_fin > :horaInicio', {
                 horaFin: dto.horaFin,

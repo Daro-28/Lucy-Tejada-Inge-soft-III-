@@ -36,6 +36,7 @@ import { EvaluacionesModule } from './evaluaciones/evaluaciones.module';
 import { EscenariosModule } from './escenarios/escenarios.module';
 import { ReservasModule } from './reservas/reservas.module';
 import { NotificacionesModule } from './notificaciones/notificaciones.module';
+import { DashboardModule } from './dashboard/dashboard.module';
 
 const ENTITIES = [
   Usuario, Estudiante, Educador, Administrador,
@@ -77,6 +78,7 @@ const ENTITIES = [
     EscenariosModule,
     ReservasModule,
     NotificacionesModule,
+    DashboardModule,
   ],
 })
 export class AppModule { }
