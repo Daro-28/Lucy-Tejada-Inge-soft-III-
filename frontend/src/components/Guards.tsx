@@ -19,7 +19,7 @@ export const PrivateRoute: React.FC<PrivateRouteProps> = ({ allowedRoles }) => {
   }
 
   if (!user) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/" replace />;
   }
 
   if (allowedRoles && !allowedRoles.includes(user.rol)) {
